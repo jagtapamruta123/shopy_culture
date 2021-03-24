@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "404687853812",
+    "project_id": "shopyculture-c7dcb",
+    "storage_bucket": "shopyculture-c7dcb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404687853812:android:83aa0a0e41570ae38ca6a1",
+        "android_client_info": {
+          "package_name": "com.sycryption.shopy_culture_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404687853812-9ampjiep0k22e43qo73iihcpdubosnvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCfNO290ru0K9Dh0X7dj0WYCRv0mhg2gg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "404687853812-9ampjiep0k22e43qo73iihcpdubosnvv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
