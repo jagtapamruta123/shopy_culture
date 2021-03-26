@@ -4,12 +4,15 @@ import 'package:shopy_culture_flutter/pages/about_us_page.dart';
 import 'package:shopy_culture_flutter/pages/cart/add_location.dart';
 import 'package:shopy_culture_flutter/pages/cart/cart_page.dart';
 import 'package:shopy_culture_flutter/pages/cart/checkout_page.dart';
+import 'package:shopy_culture_flutter/pages/cart/get_location.dart';
 import 'package:shopy_culture_flutter/pages/categories/categories_page.dart';
 import 'package:shopy_culture_flutter/pages/categories/category_item_click.dart';
 import 'package:shopy_culture_flutter/pages/contact_us_page.dart';
 import 'package:shopy_culture_flutter/pages/home_page.dart';
 import 'package:shopy_culture_flutter/pages/login/sign_in_page.dart';
 import 'package:shopy_culture_flutter/pages/login/sign_up_page.dart';
+import 'package:shopy_culture_flutter/pages/purchase/order_status_page.dart';
+import 'package:shopy_culture_flutter/pages/purchase/purchase_history.dart';
 
 import 'pages/categories/cat_single_item_click.dart';
 import 'pages/home_page_item_card_tap.page/brand_item_click_page.dart';
@@ -40,8 +43,8 @@ class MyApp extends StatelessWidget {
         HomePage.id: (context) => HomePage(),
         LoginPage.id: (BuildContext context) => LoginPage(),
         SignUpPage.id: (BuildContext context) => SignUpPage(),
-        ContactUsPage.id: (context) => ContactUsPage(),
-        AboutUsPage.id: (context) => AboutUsPage(),
+        // ContactUsPage.id: (context) => ContactUsPage(),
+        // AboutUsPage.id: (context) => AboutUsPage(),
         CategoriesPage.id: (context) => CategoriesPage(),
         CategoryItemPage.id: (context) => CategoryItemPage(),
         SingleItemPage.id: (context) => SingleItemPage(),
@@ -52,7 +55,10 @@ class MyApp extends StatelessWidget {
         BrandItemPage.id: (context) => BrandItemPage(),
         CartPage.id: (context) => CartPage(),
         AddLocationPage.id: (context) => AddLocationPage(),
-        CheckoutPage.id: (context) => CheckoutPage()
+        CheckoutPage.id: (context) => CheckoutPage(),
+        PurchaseHistoryPage.id: (context) => PurchaseHistoryPage(),
+        OrderStatusPage.id: (context) => OrderStatusPage(),
+        GetLocationPage.id: (context) => GetLocationPage()
       },
     );
   }

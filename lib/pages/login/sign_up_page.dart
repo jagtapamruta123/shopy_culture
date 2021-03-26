@@ -4,8 +4,12 @@ import 'dart:convert' as JSON;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shopy_culture_flutter/functions/check_internet.dart';
+import 'package:shopy_culture_flutter/model/user_registration.dart';
+//import 'package:shopy_culture_flutter/model/registration_model.dart';
 import 'package:shopy_culture_flutter/pages/login/sign_in_page.dart';
 import 'package:shopy_culture_flutter/pages/login/sign_up_page.dart';
+import 'package:shopy_culture_flutter/services/registration_service.dart';
 import 'package:shopy_culture_flutter/widgets/flat_button_widget.dart';
 import 'package:shopy_culture_flutter/widgets/text_form_field.dart';
 import 'package:shopy_culture_flutter/widgets/text_widget.dart';
@@ -27,9 +31,13 @@ class _SignUpPageState extends State<SignUpPage> {
   String conPass;
   String email;
   String password;
+  ConnectivityStream stream = ConnectivityStream();
 
   @override
   void initState() {
+    stream.getState((val) {
+      setState(() {});
+    });
     _nameController = TextEditingController();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
@@ -45,6 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    stream.dispose();
     // TODO: implement dispose
     super.dispose();
   }
@@ -53,6 +62,10 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      bottomNavigationBar: Visibility(
+        child: NoInternetBanner(),
+        visible: !ConnectivityStream.isInternet,
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: _form,
@@ -69,7 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   title: 'Sign Up',
                   fontSize: 30,
                   letterSpecing: 0.5,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                   color: Colors.redAccent,
                 ),
                 SizedBox(
@@ -88,9 +101,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     Icons.person,
                   ),
                   filled: false,
-                  // isDense: true,
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                  isDense: true,
+                  padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                   align: TextAlign.center,
                   inputTextFormatter: [
                     LengthLimitingTextInputFormatter(20),
@@ -99,13 +111,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   action: TextInputAction.next,
                   hintFontSize: 15,
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none),
+                      // borderRadius: BorderRadius.circular(30),
+                      // borderSide: BorderSide.none,
+                      ),
                   onChanged: (value) {
-                    email = value;
+                    name = value;
                   },
 
-                  /// labelText: isLabel == true ? 'Email' : "",
+                  labelText: 'Name',
                   hintText: 'Enter your Name',
                 ),
 
@@ -135,13 +148,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   action: TextInputAction.next,
                   hintFontSize: 15,
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none),
+                      // borderRadius: BorderRadius.circular(30),
+                      // borderSide: BorderSide.none,
+                      ),
                   onChanged: (value) {
                     email = value;
                   },
 
-                  /// labelText: isLabel == true ? 'Email' : "",
+                  labelText: 'Email',
                   hintText: 'Enter your email id',
                 ),
 
@@ -171,16 +185,15 @@ class _SignUpPageState extends State<SignUpPage> {
                   prefix: Icon(
                     Icons.lock_outlined,
                   ),
-
                   hintFontSize: 15,
                   border:
                       //OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none)),
                       OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide.none,
-                  ),
+                          //  borderRadius: BorderRadius.circular(30),
+                          // borderSide: BorderSide.none,
+                          ),
                   action: TextInputAction.next,
-                  //  labelText: isLabel == true ? 'password ' : "",
+                  labelText: 'password ',
                   hintText: 'Enter Password',
                 ),
 
@@ -198,7 +211,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   obscureText: true,
                   filled: false,
                   onChanged: (value) {
-                    password = value;
+                    conPass = value;
                   },
                   padding: EdgeInsets.fromLTRB(5, 5, 5, 3),
                   prefix: Icon(
@@ -206,10 +219,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   hintFontSize: 15,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide.none,
-                  ),
+                      // borderRadius: BorderRadius.circular(30),
+                      // borderSide: BorderSide.none,
+                      ),
                   action: TextInputAction.next,
+                  labelText: 'Confirm password ',
                   hintText: 'Confirm Password',
                 ),
 
@@ -221,7 +235,22 @@ class _SignUpPageState extends State<SignUpPage> {
                   minWidth: double.infinity,
                   color: Colors.red[400],
                   onPressFlatButton: () {
-                    _form.currentState.validate();
+                    if (_form.currentState.validate()) {
+                      _form.currentState.save();
+                      print(name);
+                      print(email);
+                      print(password);
+                      final data = UserRegistration(
+                        name: name,
+                        email: email,
+                        password: password,
+                      );
+                      postUser(userRegistration: data
+                          // name: name,
+                          // password: password,
+                          // email: email,
+                          );
+                    }
                   },
                 ),
                 // SizedBox(

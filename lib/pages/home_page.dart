@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopy_culture_flutter/app_drawer.dart';
+import 'package:shopy_culture_flutter/functions/check_internet.dart';
 import 'package:shopy_culture_flutter/pages/cart/cart_page.dart';
 import 'package:shopy_culture_flutter/pages/categories/cat_single_item_click.dart';
 import 'package:shopy_culture_flutter/pages/home_page_item_card_tap.page/brand_item_click_page.dart';
@@ -25,13 +26,25 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   var disable = false;
-
+  ConnectivityStream stream = ConnectivityStream();
   bool _showIcon() {
     setState(() {
       disable = false;
 
       return disable;
     });
+  }
+
+  @override
+  void initState() {
+    stream.getState((val) {
+      setState(() {});
+    });
+
+    // print(ConnectivityStream.isInternet);
+    // TODO: implement initState
+    // CheckInternate().checkConnection(context);
+    super.initState();
   }
 
   @override
@@ -58,6 +71,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      bottomNavigationBar: Visibility(
+        visible: !ConnectivityStream.isInternet,
+        child: NoInternetBanner(),
+      ),
+      //  ? NoInternetBanner() : Container(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

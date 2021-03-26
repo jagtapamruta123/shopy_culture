@@ -4,6 +4,7 @@ import 'dart:convert' as JSON;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shopy_culture_flutter/functions/check_internet.dart';
 import 'package:shopy_culture_flutter/pages/login/sign_up_page.dart';
 import 'package:shopy_culture_flutter/widgets/flat_button_widget.dart';
 import 'package:shopy_culture_flutter/widgets/text_form_field.dart';
@@ -20,21 +21,16 @@ class _LoginPageState extends State<LoginPage> {
   bool isLabel;
   String email;
   String password;
-
-  _showLabel() {
-    setState(() {
-      isLabel = true;
-    });
-  }
+//  bool isConnection = false;
+  ConnectivityStream stream = ConnectivityStream();
 
   @override
   void initState() {
     // TODO: implement initState
-
-    setState(() {
-      isLabel = true;
+    stream.getState((val) {
+      setState(() {});
     });
-
+    //CheckInternate().checkConnection(context);
     super.initState();
   }
 
@@ -60,6 +56,10 @@ class _LoginPageState extends State<LoginPage> {
             ),
           )
         ],
+      ),
+      bottomNavigationBar: Visibility(
+        child: NoInternetBanner(),
+        visible: !ConnectivityStream.isInternet,
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -106,13 +106,14 @@ class _LoginPageState extends State<LoginPage> {
                   action: TextInputAction.next,
                   hintFontSize: 15,
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none),
+                      // borderRadius: BorderRadius.circular(30),
+                      // borderSide: BorderSide.none,
+                      ),
                   onChanged: (value) {
                     email = value;
                   },
 
-                  /// labelText: isLabel == true ? 'Email' : "",
+                  labelText: 'Email',
                   hintText: '  Enter your email id',
                 ),
                 SizedBox(
@@ -134,19 +135,18 @@ class _LoginPageState extends State<LoginPage> {
                   prefix: Icon(
                     Icons.lock_outlined,
                   ),
-
                   hintFontSize: 15,
                   border:
                       //OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none)),
                       OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide.none,
-                  ),
+                          //  borderRadius: BorderRadius.circular(30),
+                          // borderSide: BorderSide.none,
+                          ),
                   action: TextInputAction.next,
-                  //  labelText: isLabel == true ? 'password ' : "",
+                  labelText: 'password ',
                   hintText: 'Enter Password',
                 ),
-               
+
                 SizedBox(
                   height: 20,
                 ),

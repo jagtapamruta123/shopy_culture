@@ -6,6 +6,7 @@ import 'package:shopy_culture_flutter/pages/categories/categories_page.dart';
 import 'package:shopy_culture_flutter/pages/contact_us_page.dart';
 import 'package:shopy_culture_flutter/pages/home_page.dart';
 import 'package:shopy_culture_flutter/pages/login/sign_in_page.dart';
+import 'package:shopy_culture_flutter/pages/purchase/purchase_history.dart';
 import 'package:shopy_culture_flutter/widgets/text_widget.dart';
 
 class CustomDrawerWidget extends StatelessWidget {
@@ -98,7 +99,7 @@ class CustomDrawerWidget extends StatelessWidget {
             name: 'WishList',
           ),
           DrawerWidget(
-            onTap: null,
+            onTap: () => Navigator.pushNamed(context, PurchaseHistoryPage.id),
             leading: Image.asset(
               'images/purchase_history.png',
               height: 25,
@@ -108,7 +109,7 @@ class CustomDrawerWidget extends StatelessWidget {
           ),
           DrawerWidget(
             onTap: () {
-              Navigator.pushNamed(context, AboutUsPage.id);
+              //Navigator.pushNamed(context, AboutUsPage.id);
             },
             leading: Image.asset(
               'images/about_us.png',
@@ -118,7 +119,7 @@ class CustomDrawerWidget extends StatelessWidget {
             name: 'About Us',
           ),
           DrawerWidget(
-            onTap: () => Navigator.pushNamed(context, ContactUsPage.id),
+            // onTap: () => Navigator.pushNamed(context, ContactUsPage.id),
             leading: Image.asset(
               'images/contact_us.png',
               height: 25,

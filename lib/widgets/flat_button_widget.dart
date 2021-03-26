@@ -34,7 +34,7 @@ class OutLineButtonWidget extends StatelessWidget {
           ),
           // visualDensity: VisualDensity.,
           shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(30.0),
+            //  borderRadius: new BorderRadius.circular(30.0),
             side: BorderSide.none,
           ),
           onPressed: onPressFlatButton,
@@ -60,7 +60,7 @@ class CustomElevation extends StatelessWidget {
       height: 50,
       width: 150,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        //  borderRadius: BorderRadius.circular(30),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.redAccent.withOpacity(0.2),
@@ -131,15 +131,30 @@ class NavigationButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 130,
+      height: 104,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Row(
+          //   children: [
+          //     TextFormField(
+          //       decoration: InputDecoration(
+          //         filled: true,
+          //         isDense: true,
+          //         labelText: 'enter coupon code',
+          //         // contentPadding: EdgeInsets.fromLTRB(0, 6, 10, 0),
+          //         border: OutlineInputBorder(),
+          //         hintText: 'COUPON CODE',
+          //       ),
+          //     ),
+          //     Spacer(),FlatButton(onPressed: null, child: Text('APPLY COUPON'),),
+          //   ],
+          // ),
           InkWell(
             onTap: onTapSubTotal,
             child: Container(
-              height: 65,
+              height: 48,
               decoration: BoxDecoration(
                 color: Colors.blue[100],
               ),
@@ -154,7 +169,7 @@ class NavigationButtonWidget extends StatelessWidget {
           InkWell(
             onTap: onTap,
             child: Container(
-              height: 65,
+              height: 55,
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
@@ -264,6 +279,98 @@ class NavigationButtonWidgetWithCoupon extends StatelessWidget {
             onTap: onTap,
             child: Container(
               height: 65,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Center(
+                child: Text(
+                  title,
+                ),
+              ),
+              width: double.infinity,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class NavigationButtonWidgetApplyCuopon extends StatelessWidget {
+  final String title;
+  final Function onTap;
+  final Function onTapSubTotal;
+  String subTotal;
+  // final Color color;
+
+  NavigationButtonWidgetApplyCuopon({
+    @required this.title,
+    @required this.onTap,
+    this.subTotal = '',
+    this.onTapSubTotal,
+    // this.color,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 160,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+            child: Row(
+              children: [
+                Container(
+                  width: 250,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      isDense: true,
+                      labelText: 'enter coupon code',
+                      // contentPadding: EdgeInsets.fromLTRB(0, 6, 10, 0),
+                      border: OutlineInputBorder(),
+                      hintText: 'COUPON CODE',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                FlatButton(
+                  minWidth: 145,
+                  // minWidth: double.infinity,
+                  height: 50,
+                  onPressed: () {},
+                  color: Colors.green[300],
+                  splashColor: Colors.green,
+                  child: Text('APPLY COUPON'),
+                )
+              ],
+            ),
+          ),
+          InkWell(
+            onTap: onTapSubTotal,
+            child: Container(
+              height: 48,
+              decoration: BoxDecoration(
+                color: Colors.blue[100],
+              ),
+              child: Center(
+                child: Text(
+                  subTotal,
+                ),
+              ),
+              width: double.infinity,
+            ),
+          ),
+          InkWell(
+            onTap: onTap,
+            child: Container(
+              height: 55,
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),

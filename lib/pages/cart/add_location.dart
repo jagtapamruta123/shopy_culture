@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shopy_culture_flutter/pages/cart/checkout_page.dart';
+import 'package:shopy_culture_flutter/pages/cart/get_location.dart';
 import 'package:shopy_culture_flutter/widgets/flat_button_widget.dart';
 import 'package:shopy_culture_flutter/widgets/text_widget.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoding/geocoding.dart';
 
 class AddLocationPage extends StatefulWidget {
   static String id = 'add_address';
@@ -11,6 +15,47 @@ class AddLocationPage extends StatefulWidget {
 
 class _AddLocationPageState extends State<AddLocationPage> {
   bool isSelected = false;
+  Position _currentPosition;
+  String _currentAddress;
+  final Geolocator geolocator = Geolocator();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _getCurrentLocation();
+    super.initState();
+  }
+
+  _getCurrentLocation() {
+    Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.best,
+    ).then((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+      _getAddressFromLatLng();
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+      Placemark place = p[0];
+      setState(() {
+        _currentAddress =
+            "${place.subAdministrativeArea},${place.name},${place.subLocality},${place.locality}, ${place.postalCode}, ${place.country}";
+
+        print(_currentAddress);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //..forceAndroidLocationManager;
   List<bool> _selected = List.generate(20, (i) => false);
   @override
   Widget build(BuildContext context) {
@@ -24,7 +69,10 @@ class _AddLocationPageState extends State<AddLocationPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.add_location),
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(
+              context,
+              GetLocationPage.id,
+            ),
           )
         ],
       ),
@@ -33,7 +81,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
         onTap: () => Navigator.pushNamed(context, CheckoutPage.id),
       ),
       body: ListView.builder(
-          itemCount: 2,
+          itemCount: 1,
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
               onTap: () => setState(() => _selected[index] = !_selected[index]),
@@ -52,8 +100,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
                       CustomTextWidget(
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
-                        title:
-                            'Elora palace ,panchod,Balaji Nagar,Pune,Maharastra 411043,INDIA',
+                        title: _currentAddress != null ? _currentAddress : '',
                         lines: 2,
                         overFlow: TextOverflow.ellipsis,
                       ),

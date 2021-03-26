@@ -24,23 +24,38 @@ dependencies:
   url_launcher:
   get_it: ^6.0.0
   google_sign_in: ^4.5.1
-  firebase_auth:
+  # firebase_auth:
   flutter_facebook_login: 
   flutter_facebook_auth:
   firebase_core:  
   http:  
-   
+  im_stepper: ^0.1.2+10
+  google_maps_flutter: 
+  geolocator:  
+  geocoding:
+  data_connection_checker:
+  connectivity:
+  json_annotation: 
+  dio: ^3.0.10 
+
+
+  # dio: ^3.0.10
+  # http_parser: ^4.0.0
    
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: 
+  # build_test: ^0.10.3
+  json_serializable: 
 
 
 flutter:
 
  
   uses-material-design: true
+ 
 
  
   assets:

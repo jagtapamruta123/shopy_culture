@@ -55,9 +55,9 @@ class CustomTextFormFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 6,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(28),
-      ),
+      // shape: RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.circular(28),
+      // ),
       child: TextFormField(
         //  cursorHeight: 3,
         validator: validator,

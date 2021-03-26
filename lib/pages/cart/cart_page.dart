@@ -54,7 +54,7 @@ class _CartPageState extends State<CartPage> {
                       ),
                       subtitle: Container(
                         width: 50,
-                        margin: EdgeInsets.fromLTRB(4, 12, 100, 0),
+                        margin: EdgeInsets.fromLTRB(4, 12, 60, 0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(11.5),
                           border: Border.all(
